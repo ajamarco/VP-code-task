@@ -13,6 +13,7 @@ import { transformProducts } from "../utils/SearchUtils";
 const Search = () => {
   const searchQuery = useAppSelector((state) => state.search.searchQuery);
   const isLoading = useAppSelector((state) => state.search.isLoading);
+  const sortBy = useAppSelector((state) => state.sort.sortBy);
   const dispatch = useAppDispatch();
 
   // Debounce the search query with 500ms delay
@@ -25,7 +26,7 @@ const Search = () => {
       dispatch(setError(null));
 
       try {
-        const response = await searchAPI(debouncedSearchQuery);
+        const response = await searchAPI(debouncedSearchQuery, sortBy);
         console.log("✅ API call successful:", response);
 
         // Transform and save products to Redux
@@ -44,7 +45,7 @@ const Search = () => {
     };
 
     performSearch();
-  }, [debouncedSearchQuery, dispatch]);
+  }, [debouncedSearchQuery, sortBy, dispatch]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchQuery(e.target.value));
