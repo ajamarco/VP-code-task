@@ -4,7 +4,8 @@ const API_ENDPOINT = `${baseUrl}apikey=${apiKey}`;
 
 export const searchAPI = async (
   query: string,
-  sort: number = 1
+  sort: number = 1,
+  pageNumber: number = 1
 ): Promise<any> => {
   try {
     const response = await fetch(API_ENDPOINT, {
@@ -14,7 +15,7 @@ export const searchAPI = async (
       },
       body: JSON.stringify({
         query: query,
-        pageNumber: 1,
+        pageNumber: pageNumber,
         size: 20,
         additionalPages: 0,
         sort: sort,
