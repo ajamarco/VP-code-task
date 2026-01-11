@@ -22,6 +22,7 @@ function ProductsList() {
           key={product.id}
           productName={product.productName}
           image={product.image}
+          price={product.price}
         />
       ))}
     </div>

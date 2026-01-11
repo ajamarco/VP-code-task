@@ -3,6 +3,8 @@ import searchReducer from "../features/search/searchSlice";
 import productsReducer from "../features/products/productsSlice";
 import sortReducer from "../features/sort/sortSlice";
 import paginationReducer from "../features/pagination/paginationSlice";
+import facetsReducer from "../features/facets/facetsSlice";
+import filtersReducer from "../features/filters/filtersSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +12,8 @@ export const store = configureStore({
     products: productsReducer,
     sort: sortReducer,
     pagination: paginationReducer,
+    facets: facetsReducer,
+    filters: filtersReducer,
   },
 });
 
