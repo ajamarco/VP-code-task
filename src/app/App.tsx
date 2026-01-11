@@ -1,7 +1,11 @@
+import Search from "../components/Search";
+
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <div className="max-w-2xl mx-auto p-6 space-y-6">
+        <Search />
+      </div>
     </>
   );
 }
