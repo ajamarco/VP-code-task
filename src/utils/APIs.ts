@@ -2,7 +2,10 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const apiKey = import.meta.env.VITE_API_KEY;
 const API_ENDPOINT = `${baseUrl}apikey=${apiKey}`;
 
-export const searchAPI = async (query: string): Promise<any> => {
+export const searchAPI = async (
+  query: string,
+  sort: number = 1
+): Promise<any> => {
   try {
     const response = await fetch(API_ENDPOINT, {
       method: "POST",
@@ -14,7 +17,7 @@ export const searchAPI = async (query: string): Promise<any> => {
         pageNumber: 1,
         size: 20,
         additionalPages: 0,
-        sort: 1,
+        sort: sort,
       }),
     });
 
