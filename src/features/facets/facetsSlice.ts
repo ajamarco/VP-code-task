@@ -37,22 +37,34 @@ const facetsSlice = createSlice({
       state.facets = action.payload;
     },
     setFacetsWithPreservedPrices: (state, action: PayloadAction<Facet[]>) => {
-      // Find the existing prices facet
+      // Find the existing prices and brands facets
       const existingPricesFacet = state.facets.find(
         (facet) => facet.identifier === "prices"
       );
+      const existingBrandsFacet = state.facets.find(
+        (facet) => facet.identifier === "brands"
+      );
 
-      // Check if the new facets include prices
+      // Check if the new facets include prices and brands
       const newHasPrices = action.payload.some(
         (facet) => facet.identifier === "prices"
       );
+      const newHasBrands = action.payload.some(
+        (facet) => facet.identifier === "brands"
+      );
 
+      // Start with the new facets
+      let updatedFacets = [...action.payload];
+
+      // Add back missing facets that should be preserved
       if (existingPricesFacet && !newHasPrices) {
-        // Preserve the prices facet if it existed before and is not in the new response
-        state.facets = [...action.payload, existingPricesFacet];
-      } else {
-        state.facets = action.payload;
+        updatedFacets.push(existingPricesFacet);
       }
+      if (existingBrandsFacet && !newHasBrands) {
+        updatedFacets.push(existingBrandsFacet);
+      }
+
+      state.facets = updatedFacets;
     },
     resetFacets: (state) => {
       state.facets = [];
