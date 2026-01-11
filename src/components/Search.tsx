@@ -5,6 +5,10 @@ import {
   setError,
 } from "../features/search/searchSlice";
 import { setProducts } from "../features/products/productsSlice";
+import {
+  setPaginationData,
+  resetPagination,
+} from "../features/pagination/paginationSlice";
 import { useDebounce } from "../hooks/useDebounce";
 import { useEffect } from "react";
 import { searchAPI } from "../utils/APIs";
@@ -14,10 +18,16 @@ const Search = () => {
   const searchQuery = useAppSelector((state) => state.search.searchQuery);
   const isLoading = useAppSelector((state) => state.search.isLoading);
   const sortBy = useAppSelector((state) => state.sort.sortBy);
+  const currentPage = useAppSelector((state) => state.pagination.currentPage);
   const dispatch = useAppDispatch();
 
   // Debounce the search query with 500ms delay
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
+
+  // Reset pagination when search query or sort changes
+  useEffect(() => {
+    dispatch(resetPagination());
+  }, [debouncedSearchQuery, sortBy, dispatch]);
 
   // Effect to handle API call when debounced value changes (including initial load)
   useEffect(() => {
@@ -26,13 +36,22 @@ const Search = () => {
       dispatch(setError(null));
 
       try {
-        const response = await searchAPI(debouncedSearchQuery, sortBy);
+        const response = await searchAPI(
+          debouncedSearchQuery,
+          sortBy,
+          currentPage
+        );
         console.log("✅ API call successful:", response);
 
         // Transform and save products to Redux
         if (response.products && Array.isArray(response.products)) {
           const transformedProducts = transformProducts(response.products);
           dispatch(setProducts(transformedProducts));
+        }
+
+        // Save pagination data to Redux
+        if (response.pagination) {
+          dispatch(setPaginationData(response.pagination));
         }
 
         dispatch(setLoading(false));
@@ -45,7 +64,7 @@ const Search = () => {
     };
 
     performSearch();
-  }, [debouncedSearchQuery, sortBy, dispatch]);
+  }, [debouncedSearchQuery, sortBy, currentPage, dispatch]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchQuery(e.target.value));

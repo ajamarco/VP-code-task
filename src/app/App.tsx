@@ -1,5 +1,6 @@
 import Search from "../components/Search";
 import ProductsList from "../components/ProductsList";
+import Pagination from "../components/Pagination";
 import Filters from "../components/Filters";
 import SortBy from "../components/SortBy";
 
@@ -15,6 +16,7 @@ function App() {
           <div className="w-[80%] flex flex-col">
             <SortBy />
             <ProductsList />
+            <Pagination />
           </div>
         </div>
       </div>
