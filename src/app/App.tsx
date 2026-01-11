@@ -1,10 +1,12 @@
 import Search from "../components/Search";
+import ProductsList from "../components/ProductsList";
 
 function App() {
   return (
     <>
-      <div className="max-w-2xl mx-auto p-6 space-y-6">
+      <div className="w-[90%] h-[90vh] mx-auto my-[5vh] p-6 space-y-6">
         <Search />
+        <ProductsList />
       </div>
     </>
   );

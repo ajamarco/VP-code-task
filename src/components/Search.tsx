@@ -4,9 +4,11 @@ import {
   setLoading,
   setError,
 } from "../features/search/searchSlice";
+import { setProducts } from "../features/products/productsSlice";
 import { useDebounce } from "../hooks/useDebounce";
 import { useEffect } from "react";
 import { searchAPI } from "../utils/APIs";
+import { transformProducts } from "../utils/SearchUtils";
 
 const Search = () => {
   const searchQuery = useAppSelector((state) => state.search.searchQuery);
@@ -25,10 +27,18 @@ const Search = () => {
       try {
         const response = await searchAPI(debouncedSearchQuery);
         console.log("✅ API call successful:", response);
+
+        // Transform and save products to Redux
+        if (response.products && Array.isArray(response.products)) {
+          const transformedProducts = transformProducts(response.products);
+          dispatch(setProducts(transformedProducts));
+        }
+
         dispatch(setLoading(false));
       } catch (error) {
         console.error("❌ API call failed:", error);
         dispatch(setError("Search failed. Please try again."));
+        dispatch(setProducts([])); // Clear products on error
         dispatch(setLoading(false));
       }
     };
