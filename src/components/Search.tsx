@@ -6,7 +6,7 @@ import {
 } from "../features/search/searchSlice";
 import { useDebounce } from "../hooks/useDebounce";
 import { useEffect } from "react";
-import { searchAPI } from "../utils/mockAPI";
+import { searchAPI } from "../utils/APIs";
 
 const Search = () => {
   const searchQuery = useAppSelector((state) => state.search.searchQuery);
