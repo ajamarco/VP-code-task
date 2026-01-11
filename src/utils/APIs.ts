@@ -17,6 +17,7 @@ interface SelectedFilter {
 
 interface FacetsPayload {
   prices?: SelectedFilter[];
+  brands?: SelectedFilter[];
 }
 
 export const searchAPI = async (

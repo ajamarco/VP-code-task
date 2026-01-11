@@ -26,6 +26,9 @@ const Search = () => {
   const selectedPriceFilters = useAppSelector(
     (state) => state.filters.selectedPriceFilters
   );
+  const selectedBrandFilters = useAppSelector(
+    (state) => state.filters.selectedBrandFilters
+  );
   const dispatch = useAppDispatch();
 
   // Debounce the search query with 500ms delay
@@ -64,17 +67,43 @@ const Search = () => {
             };
           });
         }
+        if (selectedBrandFilters.length > 0) {
+          // Format filters for API call
+          facetsPayload.brands = selectedBrandFilters.map((filter) => {
+            // If it's a range filter (has id and isFilter), use that format
+            if (filter.id && filter.isFilter) {
+              return {
+                isFilter: filter.isFilter,
+                id: filter.id,
+                value: filter.value,
+              };
+            }
+            // Otherwise, it's a checkbox filter (has identifier)
+            return {
+              id: filter.identifier,
+              value: filter.value,
+              displayValue: filter.displayValue,
+            };
+          });
+        }
 
         // Determine facetExcludes
-        const facetExcludes =
-          selectedPriceFilters.length > 0 ? ["prices"] : null;
+        const facetExcludes: string[] = [];
+        if (selectedPriceFilters.length > 0) {
+          facetExcludes.push("prices");
+        }
+        if (selectedBrandFilters.length > 0) {
+          facetExcludes.push("brands");
+        }
+        const finalFacetExcludes =
+          facetExcludes.length > 0 ? facetExcludes : null;
 
         const response = await searchAPI(
           debouncedSearchQuery,
           sortBy,
           currentPage,
           facetsPayload,
-          facetExcludes
+          finalFacetExcludes
         );
         console.log("✅ API call successful:", response);
 
@@ -91,8 +120,11 @@ const Search = () => {
 
         // Save facets data to Redux with preservation logic
         if (response.facets && Array.isArray(response.facets)) {
-          if (selectedPriceFilters.length > 0) {
-            // If we have price filters selected, preserve the prices facet
+          if (
+            selectedPriceFilters.length > 0 ||
+            selectedBrandFilters.length > 0
+          ) {
+            // If we have price or brand filters selected, preserve the facets
             dispatch(setFacetsWithPreservedPrices(response.facets));
           } else {
             // No filters selected, just set the facets normally
@@ -115,6 +147,7 @@ const Search = () => {
     sortBy,
     currentPage,
     selectedPriceFilters,
+    selectedBrandFilters,
     dispatch,
   ]);
 

@@ -1,5 +1,6 @@
 import { useAppSelector } from "../hooks/redux";
 import PriceFilter from "./PriceFilter";
+import BrandFilter from "./BrandFilter";
 import ActiveFilters from "./ActiveFilters";
 
 function Filters() {
@@ -7,13 +8,16 @@ function Filters() {
   console.log("facets", facets);
   // Check if price facet exists
   const hasPriceFacet = facets.some((facet) => facet.identifier === "prices");
+  // Check if brand facet exists
+  const hasBrandFacet = facets.some((facet) => facet.identifier === "brands");
 
   return (
     <div className="h-full p-4 border border-gray-200 rounded-lg">
       <h2 className="text-xl font-semibold mb-4">Filters</h2>
       <ActiveFilters />
       {hasPriceFacet && <PriceFilter />}
-      {!hasPriceFacet && (
+      {hasBrandFacet && <BrandFilter />}
+      {!hasPriceFacet && !hasBrandFacet && (
         <p className="text-gray-500">Filter options will be added here</p>
       )}
     </div>
