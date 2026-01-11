@@ -1,20 +1,11 @@
-import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { increment } from "../features/counter/counterSlice";
+import Search from "../components/Search";
 
 function App() {
-  const value = useAppSelector((state) => state.counter.value);
-  const dispatch = useAppDispatch();
-
   return (
     <>
-      <div className="text-2xl font-bold">Counter: {value}</div>
-      <button
-        className="px-3 py-2 rounded bg-black text-white"
-        onClick={() => dispatch(increment())}
-      >
-        +1
-      </button>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <div className="max-w-2xl mx-auto p-6 space-y-6">
+        <Search />
+      </div>
     </>
   );
 }
