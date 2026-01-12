@@ -16,7 +16,6 @@ function Product({
   averageRating,
   brand,
 }: ProductProps) {
-  console.log("averageRating", averageRating);
   return (
     <div className="border rounded-lg p-4 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
       <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-100 mb-4 relative group">

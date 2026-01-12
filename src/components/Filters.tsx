@@ -5,7 +5,6 @@ import ActiveFilters from "./ActiveFilters";
 
 function Filters() {
   const facets = useAppSelector((state) => state.facets.facets);
-  console.log("facets", facets);
   // Check if price facet exists
   const hasPriceFacet = facets.some((facet) => facet.identifier === "prices");
   // Check if brand facet exists

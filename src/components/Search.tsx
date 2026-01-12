@@ -105,7 +105,6 @@ const Search = () => {
           facetsPayload,
           finalFacetExcludes
         );
-        console.log("✅ API call successful:", response);
 
         // Transform and save products to Redux
         if (response.products && Array.isArray(response.products)) {

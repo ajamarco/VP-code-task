@@ -19,19 +19,16 @@ const Star = ({ fill }: StarProps) => {
 };
 
 const StarRating = ({ rating }: StarRatingProps) => {
-  const clamped = rating;
-  console.log("clamped", clamped);
-
   return (
     <div className="flex items-center gap-1">
       {Array.from({ length: 5 }, (_, i) => {
-        const remaining = clamped - i;
+        const remaining = rating - i;
         const fill: StarFill = remaining >= 1 ? 1 : remaining >= 0.5 ? 0.5 : 0;
 
         return <Star key={i} fill={fill} />;
       })}
 
-      <span className="ml-1 text-sm text-gray-600">({clamped.toFixed(1)})</span>
+      <span className="ml-1 text-sm text-gray-600">({rating.toFixed(1)})</span>
     </div>
   );
 };
