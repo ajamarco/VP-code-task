@@ -1,14 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SelectedFilter } from "../../types";
+import { getLastActiveFilterTypeOnToggle } from "../../utils/FiltersUtils";
 
 type FiltersState = {
   selectedPriceFilters: SelectedFilter[];
   selectedBrandFilters: SelectedFilter[];
+  lastActiveFilterType: "prices" | "brands" | null;
 };
 
 const initialState: FiltersState = {
   selectedPriceFilters: [],
   selectedBrandFilters: [],
+  lastActiveFilterType: null,
 };
 
 const filtersSlice = createSlice({
@@ -16,15 +19,7 @@ const filtersSlice = createSlice({
   initialState,
   reducers: {
     togglePriceFilter: (state, action: PayloadAction<SelectedFilter>) => {
-      // First, check if there's a range filter (id: "pricesRange") and remove it
-      const rangeFilterIndex = state.selectedPriceFilters.findIndex(
-        (filter) => filter.id === "pricesRange"
-      );
-      if (rangeFilterIndex !== -1) {
-        state.selectedPriceFilters.splice(rangeFilterIndex, 1);
-      }
-
-      // Then handle the checkbox toggle
+      // Handle the checkbox toggle
       const index = state.selectedPriceFilters.findIndex(
         (filter) => filter.identifier === action.payload.identifier
       );
@@ -38,37 +33,23 @@ const filtersSlice = createSlice({
           ...action.payload,
         });
       }
-    },
-    setPriceRangeFilter: (
-      state,
-      action: PayloadAction<{ gte: number; lte: number }>
-    ) => {
-      // Clear all filters and set the range filter
-      state.selectedPriceFilters = [
-        {
-          isFilter: true,
-          id: "pricesRange",
-          value: {
-            gte: action.payload.gte,
-            lte: action.payload.lte,
-          },
-          displayValue: "",
-        },
-      ];
+
+      // Update lastActiveFilterType - we just interacted with prices
+      state.lastActiveFilterType = getLastActiveFilterTypeOnToggle(
+        "prices",
+        state.selectedPriceFilters.length,
+        state.selectedBrandFilters.length
+      );
     },
     clearPriceFilters: (state) => {
       state.selectedPriceFilters = [];
+      // Reset lastActiveFilterType if no filters remain
+      if (state.selectedBrandFilters.length === 0) {
+        state.lastActiveFilterType = null;
+      }
     },
     toggleBrandFilter: (state, action: PayloadAction<SelectedFilter>) => {
-      // First, check if there's a range filter (id: "brandsRange") and remove it
-      const rangeFilterIndex = state.selectedBrandFilters.findIndex(
-        (filter) => filter.id === "brandsRange"
-      );
-      if (rangeFilterIndex !== -1) {
-        state.selectedBrandFilters.splice(rangeFilterIndex, 1);
-      }
-
-      // Then handle the checkbox toggle
+      // Handle the checkbox toggle
       const index = state.selectedBrandFilters.findIndex(
         (filter) => filter.identifier === action.payload.identifier
       );
@@ -82,36 +63,28 @@ const filtersSlice = createSlice({
           ...action.payload,
         });
       }
-    },
-    setBrandRangeFilter: (
-      state,
-      action: PayloadAction<{ gte: number; lte: number }>
-    ) => {
-      // Clear all filters and set the range filter
-      state.selectedBrandFilters = [
-        {
-          isFilter: true,
-          id: "brandsRange",
-          value: {
-            gte: action.payload.gte,
-            lte: action.payload.lte,
-          },
-          displayValue: "",
-        },
-      ];
+
+      // Update lastActiveFilterType - we just interacted with brands
+      state.lastActiveFilterType = getLastActiveFilterTypeOnToggle(
+        "brands",
+        state.selectedBrandFilters.length,
+        state.selectedPriceFilters.length
+      );
     },
     clearBrandFilters: (state) => {
       state.selectedBrandFilters = [];
+      // Reset lastActiveFilterType if no filters remain
+      if (state.selectedPriceFilters.length === 0) {
+        state.lastActiveFilterType = null;
+      }
     },
   },
 });
 
 export const {
   togglePriceFilter,
-  setPriceRangeFilter,
   clearPriceFilters,
   toggleBrandFilter,
-  setBrandRangeFilter,
   clearBrandFilters,
 } = filtersSlice.actions;
 export default filtersSlice.reducer;
