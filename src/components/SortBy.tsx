@@ -1,9 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import {
-  setSortBy,
-  SORT_OPTIONS,
-  SortOptionValue,
-} from "../features/sort/sortSlice";
+import { setSortBy, SortOptionValue } from "../features/sort/sortSlice";
+import SortByDesktop from "./SortByDesktop";
+import SortByMobile from "./SortByMobile";
 
 function SortBy() {
   const dispatch = useAppDispatch();
@@ -15,23 +13,8 @@ function SortBy() {
 
   return (
     <div className="mb-4 p-4 bg-white rounded-lg border border-gray-200">
-      <div className="flex items-center gap-6">
-        <span className="font-medium text-gray-700">Sort by:</span>
-
-        {Object.entries(SORT_OPTIONS).map(([label, value]) => (
-          <label key={value} className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="radio"
-              name="sortBy"
-              value={value}
-              checked={sortBy === value}
-              onChange={() => handleSortChange(value)}
-              className="cursor-pointer"
-            />
-            <span className="text-sm">{label}</span>
-          </label>
-        ))}
-      </div>
+      <SortByDesktop sortBy={sortBy} onSortChange={handleSortChange} />
+      <SortByMobile sortBy={sortBy} onSortChange={handleSortChange} />
     </div>
   );
 }
