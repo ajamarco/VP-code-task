@@ -31,3 +31,44 @@ This application provides a comprehensive product browsing experience with real-
 - **Styling**: Tailwind CSS 4.1.18
 - **Build Tool**: Vite 7.2.4
 - **Code Quality**: ESLint with React hooks plugin
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or higher recommended)
+- npm or yarn package manager
+
+### Installation & Setup
+
+1. **Clone the repository**:
+
+```bash
+git clone <repository-url>
+cd VP-code-task
+```
+
+2. **Install dependencies**:
+
+```bash
+npm install
+```
+
+3. **Configure environment variables**:
+
+Create a `.env` file in the root directory of the project and add the following variables:
+
+```env
+VITE_API_BASE_URL=<your-api-base-url>
+VITE_API_KEY=<your-api-key>
+```
+
+> **Important**: The application will not work without these environment variables. Make sure to obtain the correct API base URL and API key before running the project.
+
+4. **Start the development server**:
+
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:5173` (or another port if 5173 is in use)
