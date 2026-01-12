@@ -1,11 +1,7 @@
 import Filters from "./Filters";
+import { OverlayProps } from "../types";
 
-interface FilterSidebarProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-function FilterSidebar({ isOpen, onClose }: FilterSidebarProps) {
+function FilterSidebar({ isOpen, onClose }: OverlayProps) {
   return (
     <div
       className={`

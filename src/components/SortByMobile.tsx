@@ -1,11 +1,7 @@
 import { SORT_OPTIONS, SortOptionValue } from "../features/sort/sortSlice";
+import { SortProps } from "../types";
 
-interface SortByMobileProps {
-  sortBy: SortOptionValue;
-  onSortChange: (value: SortOptionValue) => void;
-}
-
-function SortByMobile({ sortBy, onSortChange }: SortByMobileProps) {
+function SortByMobile({ sortBy, onSortChange }: SortProps) {
   return (
     <div className="lg:hidden flex items-center gap-4">
       <label htmlFor="sortBy-select" className="font-medium text-gray-700">

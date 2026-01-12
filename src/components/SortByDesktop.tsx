@@ -1,11 +1,7 @@
-import { SORT_OPTIONS, SortOptionValue } from "../features/sort/sortSlice";
+import { SORT_OPTIONS } from "../features/sort/sortSlice";
+import { SortProps } from "../types";
 
-interface SortByDesktopProps {
-  sortBy: SortOptionValue;
-  onSortChange: (value: SortOptionValue) => void;
-}
-
-function SortByDesktop({ sortBy, onSortChange }: SortByDesktopProps) {
+function SortByDesktop({ sortBy, onSortChange }: SortProps) {
   return (
     <div className="hidden lg:flex items-center gap-6">
       <span className="font-medium text-gray-700">Sort by:</span>

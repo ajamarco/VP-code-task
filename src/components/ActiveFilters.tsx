@@ -3,6 +3,7 @@ import {
   togglePriceFilter,
   toggleBrandFilter,
 } from "../features/filters/filtersSlice";
+import { SelectedFilter, FilterType } from "../types";
 
 function ActiveFilters() {
   const dispatch = useAppDispatch();
@@ -23,7 +24,10 @@ function ActiveFilters() {
     return null;
   }
 
-  const handleRemoveFilter = (filter: any, filterType: "price" | "brand") => {
+  const handleRemoveFilter = (
+    filter: SelectedFilter,
+    filterType: FilterType
+  ) => {
     // Toggle the filter to remove it (same action as unchecking)
     if (filterType === "price") {
       dispatch(togglePriceFilter(filter));
@@ -32,7 +36,7 @@ function ActiveFilters() {
     }
   };
 
-  const getDisplayValue = (filter: any, filterType: "price" | "brand") => {
+  const getDisplayValue = (filter: SelectedFilter, filterType: FilterType) => {
     // Otherwise, find the option in the facet to get the display value
     const facet = filterType === "price" ? priceFacet : brandFacet;
 

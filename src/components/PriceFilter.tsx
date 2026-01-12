@@ -1,6 +1,7 @@
 import { useAppSelector, useAppDispatch } from "../hooks/redux";
 import { togglePriceFilter } from "../features/filters/filtersSlice";
 import { useState } from "react";
+import { ExpandedSections, FacetOption } from "../types";
 
 function PriceFilter() {
   const dispatch = useAppDispatch();
@@ -10,9 +11,7 @@ function PriceFilter() {
   );
 
   // State to manage which sections are expanded
-  const [expandedSections, setExpandedSections] = useState<{
-    [key: string]: boolean;
-  }>({
+  const [expandedSections, setExpandedSections] = useState<ExpandedSections>({
     "0-1000": false,
     "1001-2000": false,
     "2001-3000": false,
@@ -29,7 +28,7 @@ function PriceFilter() {
     return null;
   }
 
-  const handleCheckboxChange = (option: any) => {
+  const handleCheckboxChange = (option: FacetOption) => {
     dispatch(
       togglePriceFilter({
         identifier: option.identifier,
@@ -54,7 +53,7 @@ function PriceFilter() {
 
   // Group prices into ranges based on their gte value
   const groupPrices = () => {
-    const ranges: { [key: string]: any[] } = {
+    const ranges: { [key: string]: FacetOption[] } = {
       "0-1000": [],
       "1001-2000": [],
       "2001-3000": [],
@@ -86,7 +85,7 @@ function PriceFilter() {
 
   const priceRanges = groupPrices();
 
-  const renderPriceOptions = (options: any[]) => {
+  const renderPriceOptions = (options: FacetOption[]) => {
     return options.map((option) => (
       <label
         key={option.identifier}

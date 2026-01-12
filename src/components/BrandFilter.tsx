@@ -1,6 +1,7 @@
 import { useAppSelector, useAppDispatch } from "../hooks/redux";
 import { toggleBrandFilter } from "../features/filters/filtersSlice";
 import { useState } from "react";
+import { ExpandedSections, FacetOption } from "../types";
 
 function BrandFilter() {
   const dispatch = useAppDispatch();
@@ -10,9 +11,7 @@ function BrandFilter() {
   );
 
   // State to manage which sections are expanded
-  const [expandedSections, setExpandedSections] = useState<{
-    [key: string]: boolean;
-  }>({
+  const [expandedSections, setExpandedSections] = useState<ExpandedSections>({
     "A-L": false,
     "M-Z": false,
   });
@@ -25,7 +24,7 @@ function BrandFilter() {
     return null;
   }
 
-  const handleCheckboxChange = (option: any) => {
+  const handleCheckboxChange = (option: FacetOption) => {
     dispatch(
       toggleBrandFilter({
         identifier: option.identifier,
@@ -50,8 +49,8 @@ function BrandFilter() {
 
   // Split brands into A-L and M-Z groups
   const groupBrands = () => {
-    const aToL: any[] = [];
-    const mToZ: any[] = [];
+    const aToL: FacetOption[] = [];
+    const mToZ: FacetOption[] = [];
 
     brandFacet.options.forEach((option) => {
       const firstLetter = option.displayValue.charAt(0).toUpperCase();
@@ -70,7 +69,7 @@ function BrandFilter() {
 
   const { aToL, mToZ } = groupBrands();
 
-  const renderBrandOptions = (options: any[]) => {
+  const renderBrandOptions = (options: FacetOption[]) => {
     return options.map((option) => (
       <label
         key={option.identifier}

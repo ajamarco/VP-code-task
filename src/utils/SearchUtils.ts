@@ -1,28 +1,6 @@
-interface TransformedProduct {
-  id: string;
-  sku: string;
-  productName: string;
-  slug: string;
-  averageRating: number;
-  image: {
-    url: string;
-    altText: string;
-  };
-  stockStatus: string;
-  price: {
-    wasPrice: number;
-    currentPrice: number;
-    currency: string;
-  };
-  brand: {
-    brandName: string;
-    brandSlug: string;
-    brandImageUrl: string;
-    brandImageAltText: string;
-  };
-}
+import { Product } from "../types";
 
-export const transformProducts = (products: any[]): TransformedProduct[] => {
+export const transformProducts = (products: any[]): Product[] => {
   return products.map((product: any) => ({
     id: product.id,
     sku: product.sku,

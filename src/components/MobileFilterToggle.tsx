@@ -1,8 +1,6 @@
-interface MobileFilterToggleProps {
-  onClick: () => void;
-}
+import { ToggleButtonProps } from "../types";
 
-function MobileFilterToggle({ onClick }: MobileFilterToggleProps) {
+function MobileFilterToggle({ onClick }: ToggleButtonProps) {
   return (
     <button
       onClick={onClick}

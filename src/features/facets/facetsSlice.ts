@@ -1,25 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface FacetOptionValue {
-  gte: number;
-  lte: number;
-}
-
-interface FacetOption {
-  identifier: string;
-  value: FacetOptionValue;
-  displayValue: string;
-  productCount: number;
-  priority: number;
-}
-
-interface Facet {
-  identifier: string;
-  facetType: number;
-  displayName: string;
-  options: FacetOption[];
-  priority: number;
-}
+import { Facet } from "../../types";
 
 type FacetsState = {
   facets: Facet[];
