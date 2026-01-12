@@ -29,6 +29,9 @@ const Search = () => {
   const selectedBrandFilters = useAppSelector(
     (state) => state.filters.selectedBrandFilters
   );
+  const lastActiveFilterType = useAppSelector(
+    (state) => state.filters.lastActiveFilterType
+  );
   const dispatch = useAppDispatch();
 
   // Debounce the search query with 500ms delay
@@ -87,16 +90,11 @@ const Search = () => {
           });
         }
 
-        // Determine facetExcludes
-        const facetExcludes: string[] = [];
-        if (selectedPriceFilters.length > 0) {
-          facetExcludes.push("prices");
+        // Determine facetExcludes based on the last interacted filter type
+        let finalFacetExcludes: string[] | null = null;
+        if (lastActiveFilterType) {
+          finalFacetExcludes = [lastActiveFilterType];
         }
-        if (selectedBrandFilters.length > 0) {
-          facetExcludes.push("brands");
-        }
-        const finalFacetExcludes =
-          facetExcludes.length > 0 ? facetExcludes : null;
 
         const response = await searchAPI(
           debouncedSearchQuery,
@@ -147,6 +145,7 @@ const Search = () => {
     currentPage,
     selectedPriceFilters,
     selectedBrandFilters,
+    lastActiveFilterType,
     dispatch,
   ]);
 
