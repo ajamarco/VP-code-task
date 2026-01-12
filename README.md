@@ -1,8 +1,8 @@
-## 📋 Overview
+## Overview
 
 This application provides a comprehensive product browsing experience with real-time search, advanced filtering, and sorting capabilities.
 
-## ✨ Features
+## Features
 
 ### Core Functionality
 
@@ -23,7 +23,7 @@ This application provides a comprehensive product browsing experience with real-
 - **Optimized Performance**: Debounced search, efficient re-renders, and loading states
 - **Clean Architecture**: Feature-based folder structure for scalability
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend Framework**: React 19.2.0
 - **Language**: TypeScript 5.9.3
