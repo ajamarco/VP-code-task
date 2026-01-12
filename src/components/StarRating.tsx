@@ -1,4 +1,6 @@
-const Star = ({ fill }: { fill: 0 | 0.5 | 1 }) => {
+import { StarProps, StarRatingProps, StarFill } from "../types";
+
+const Star = ({ fill }: StarProps) => {
   if (fill === 1) return <span className="text-yellow-400">★</span>;
   if (fill === 0) return <span className="text-gray-300">★</span>;
 
@@ -16,7 +18,7 @@ const Star = ({ fill }: { fill: 0 | 0.5 | 1 }) => {
   );
 };
 
-const StarRating = ({ rating }: { rating: number }) => {
+const StarRating = ({ rating }: StarRatingProps) => {
   const clamped = rating;
   console.log("clamped", clamped);
 
@@ -24,8 +26,7 @@ const StarRating = ({ rating }: { rating: number }) => {
     <div className="flex items-center gap-1">
       {Array.from({ length: 5 }, (_, i) => {
         const remaining = clamped - i;
-        const fill: 0 | 0.5 | 1 =
-          remaining >= 1 ? 1 : remaining >= 0.5 ? 0.5 : 0;
+        const fill: StarFill = remaining >= 1 ? 1 : remaining >= 0.5 ? 0.5 : 0;
 
         return <Star key={i} fill={fill} />;
       })}

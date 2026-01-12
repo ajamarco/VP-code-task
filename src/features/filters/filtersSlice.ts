@@ -1,17 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface FilterValue {
-  gte: number;
-  lte: number;
-}
-
-interface SelectedFilter {
-  identifier?: string;
-  id?: string;
-  value: FilterValue;
-  displayValue: string;
-  isFilter?: boolean;
-}
+import { SelectedFilter } from "../../types";
 
 type FiltersState = {
   selectedPriceFilters: SelectedFilter[];

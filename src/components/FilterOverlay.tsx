@@ -1,9 +1,6 @@
-interface FilterOverlayProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { OverlayProps } from "../types";
 
-function FilterOverlay({ isOpen, onClose }: FilterOverlayProps) {
+function FilterOverlay({ isOpen, onClose }: OverlayProps) {
   if (!isOpen) return null;
 
   return (

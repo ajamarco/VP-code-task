@@ -1,22 +1,12 @@
 import StarRating from "./StarRating";
+import { ProductImage, ProductPrice, ProductBrand } from "../types";
 
 interface ProductProps {
   productName: string;
-  image: {
-    url: string;
-    altText: string;
-  };
-  price: {
-    wasPrice: number;
-    currentPrice: number;
-    currency: string;
-  };
+  image: ProductImage;
+  price: ProductPrice;
   averageRating?: number;
-  brand: {
-    brandName: string;
-    brandImageUrl: string;
-    brandImageAltText: string;
-  };
+  brand: ProductBrand;
 }
 
 function Product({
