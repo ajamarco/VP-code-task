@@ -12,7 +12,7 @@ function Filters() {
   const hasBrandFacet = facets.some((facet) => facet.identifier === "brands");
 
   return (
-    <div className="h-full p-4 border border-gray-200 rounded-lg">
+    <div className="h-full p-4 border border-gray-200 rounded-lg overflow-y-auto">
       <h2 className="text-xl font-semibold mb-4">Filters</h2>
       <ActiveFilters />
       {hasPriceFacet && <PriceFilter />}
