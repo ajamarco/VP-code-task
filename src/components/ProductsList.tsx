@@ -23,6 +23,8 @@ function ProductsList() {
           productName={product.productName}
           image={product.image}
           price={product.price}
+          averageRating={product.averageRating}
+          brand={product.brand}
         />
       ))}
     </div>
