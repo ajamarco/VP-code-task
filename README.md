@@ -1,73 +1,33 @@
-# React + TypeScript + Vite
+## 📋 Overview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This application provides a comprehensive product browsing experience with real-time search, advanced filtering, and sorting capabilities.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Core Functionality
 
-## React Compiler
+- **Real-time Search**: Debounced search input (500ms) for optimal API performance
+- **Dynamic Filtering**:
+  - Price range filtering with predefined ranges and custom range input
+  - Brand filtering with checkbox selection
+  - Active filters display with easy removal
+- **Sorting Options**: Multiple sort criteria including relevance, price, and rating
+- **Pagination**: Navigate through product results with page controls
+- **Responsive Design**: Mobile-first approach with adaptive layouts
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Technical Highlights
 
-## Expanding the ESLint configuration
+- **State Management**: Centralized Redux Toolkit store with feature-based slices
+- **Type Safety**: Full TypeScript implementation with comprehensive type definitions
+- **Modern React**: Functional components with hooks (React 19)
+- **Optimized Performance**: Debounced search, efficient re-renders, and loading states
+- **Clean Architecture**: Feature-based folder structure for scalability
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Frontend Framework**: React 19.2.0
+- **Language**: TypeScript 5.9.3
+- **State Management**: Redux Toolkit 2.11.2
+- **Styling**: Tailwind CSS 4.1.18
+- **Build Tool**: Vite 7.2.4
+- **Code Quality**: ESLint with React hooks plugin
