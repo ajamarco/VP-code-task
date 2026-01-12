@@ -90,7 +90,7 @@ function PriceFilter() {
     return options.map((option) => (
       <label
         key={option.identifier}
-        className={`flex items-center gap-2 ${
+        className={`flex items-center gap-3 py-1 ${
           option.productCount === 0
             ? "text-gray-400 cursor-not-allowed"
             : "cursor-pointer"
@@ -101,9 +101,9 @@ function PriceFilter() {
           checked={isChecked(option.identifier)}
           onChange={() => handleCheckboxChange(option)}
           disabled={option.productCount === 0}
-          className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+          className="w-5 h-5 lg:w-4 lg:h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
         />
-        <span className="text-sm">
+        <span className="text-base lg:text-sm">
           {option.displayValue} ({option.productCount})
         </span>
       </label>
@@ -124,7 +124,9 @@ function PriceFilter() {
 
   return (
     <div className="mb-4">
-      <h3 className="text-lg font-medium mb-2">{priceFacet.displayName}</h3>
+      <h3 className="text-lg lg:text-lg font-medium mb-3">
+        {priceFacet.displayName}
+      </h3>
       <div className="space-y-2">
         {Object.entries(priceRanges).map(([rangeKey, options]) => {
           // Only render sections that have options
@@ -134,13 +136,13 @@ function PriceFilter() {
             <div key={rangeKey} className="border border-gray-200 rounded-md">
               <button
                 onClick={() => toggleSection(rangeKey)}
-                className="w-full flex items-center justify-between px-3 py-2 bg-gray-50 hover:bg-gray-100 transition-colors rounded-t-md"
+                className="w-full flex items-center justify-between px-4 py-3 lg:px-3 lg:py-2 bg-gray-50 hover:bg-gray-100 transition-colors rounded-t-md"
               >
-                <span className="text-sm font-medium text-gray-700">
+                <span className="text-base lg:text-sm font-medium text-gray-700">
                   {getRangeLabel(rangeKey)} ({options.length})
                 </span>
                 <svg
-                  className={`w-5 h-5 transition-transform ${
+                  className={`w-6 h-6 lg:w-5 lg:h-5 transition-transform ${
                     expandedSections[rangeKey] ? "rotate-180" : ""
                   }`}
                   fill="none"
@@ -156,7 +158,7 @@ function PriceFilter() {
                 </svg>
               </button>
               {expandedSections[rangeKey] && (
-                <div className="px-3 py-2 space-y-2 max-h-60 overflow-y-auto">
+                <div className="px-4 py-3 lg:px-3 lg:py-2 space-y-2 max-h-60 overflow-y-auto">
                   {renderPriceOptions(options)}
                 </div>
               )}
